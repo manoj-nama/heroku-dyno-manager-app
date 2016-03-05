@@ -3,22 +3,63 @@
 import React, {
 	Component,
 	StyleSheet,
-	Navigator
+	View,
+	Navigator,
+	ActivityIndicatorIOS,
+	AsyncStorage
 } from 'react-native';
 
 import LoginPage from './pages/login.view';
+import AccountPage from './pages/account.view';
 
-export default class BootcampApp extends Component {
+var enums = require("../common/enums"),
+	API = require("../common/api.manager");
+
+export default class HerokuApp extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			initialPage: LoginPage,
+			accountCheck: false
+		}
+	}
+
+	componentWillMount() {
+      var _data, self = this;
+
+      AsyncStorage.getItem(enums.STORAGE.ACCOUNTS, function (err, data) {
+         if(data) {
+         	self.setState({initialPage: AccountPage, accountCheck: true});
+         } else {
+         	self.setState({accountCheck: true});
+         }
+         // AsyncStorage.removeItem(enums.STORAGE.ACCOUNTS, function(){});
+      });
+   }
+
 	render() {
+		var self = this;
+		console.log(self.state);
+
+		if(!self.state.accountCheck) {
+			return (
+				<View style={styles.centering}>
+				<ActivityIndicatorIOS color={'#3A1051'} size={'large'} />
+				</View>
+			);
+		}
+
 		return (
 			<Navigator
 				automaticallyAdjustsScrollViewInsets={true}
-				initialRoute={{name: 'Login', component: LoginPage}}
+				initialRoute={{name: 'Login', component: self.state.initialPage}}
 				configureScene={() => {
 				  return Navigator.SceneConfigs.PushFromRight;
 				}}
 				renderScene={(route, navigator) => {
 					if (route.component) {
+						console.log(self.state);
 				   	return React.createElement(route.component, { navigator, route });
 				  	}
 			}} />
@@ -47,5 +88,10 @@ const styles = StyleSheet.create({
 	},
 	navBar: {
 		backgroundColor: "#60467e",
+	},
+	centering: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
 	},
 });

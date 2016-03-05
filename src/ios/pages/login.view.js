@@ -11,6 +11,8 @@ import React, {
 	View,
 } from 'react-native';
 
+import AccountPage from './account.view';
+
 var enums = require("../../common/enums"),
 	API = require("../../common/api.manager");
 
@@ -24,26 +26,9 @@ export default class LoginPage extends Component {
 			email: "",
 			password: "",
 		};
-		// AsyncStorage.removeItem(enums.STORAGE.ACCOUNTS, function(){});
 	}
 
-   componentWillMount() {
-      var _data, self = this;
-
-      AsyncStorage.getItem(enums.STORAGE.ACCOUNTS, function (err, data) {
-         if(err) {
-            console.log("Error finding accounts", err);
-         } else if(data) {
-            _data = JSON.parse(data);
-				console.log("Has accounts in storage", _data);
-         } else {
-            console.log("No accounts set, proceed with normal login screen");
-         }
-      });
-   }
-
 	doLogin() {
-		this.setState({isBusy: true});
 		if(!this.state.isBusy && this.state.email) {
 			var response = API.login({
 				email: this.state.email,
@@ -54,11 +39,16 @@ export default class LoginPage extends Component {
 					var accounts = this.state.accounts;
 					accounts[data.email] = data;
 					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
+					this.setState({isBusy: false});
+					this.props.navigator.replace({
+						component: AccountPage,
+					});
 				} else {
 					//auth error
 				}
 			}).done();
 		}
+		this.setState({isBusy: true});
 	}
 
 	render() {
@@ -80,6 +70,7 @@ export default class LoginPage extends Component {
 					<TextInput
 						style={styles.txt}
 						secureTextEntry={true}
+						autoCapitalize="none"
 						onChangeText={(text) => this.setState({password: text})}
 						placeholder="Password" />
 
