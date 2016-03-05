@@ -40,12 +40,11 @@ export default class HerokuApp extends Component {
 
 	render() {
 		var self = this;
-		console.log(self.state);
 
 		if(!self.state.accountCheck) {
 			return (
 				<View style={styles.centering}>
-				<ActivityIndicatorIOS color={'#3A1051'} size={'large'} />
+					<ActivityIndicatorIOS color={'#3A1051'} size={'large'} />
 				</View>
 			);
 		}
@@ -59,7 +58,6 @@ export default class HerokuApp extends Component {
 				}}
 				renderScene={(route, navigator) => {
 					if (route.component) {
-						console.log(self.state);
 				   	return React.createElement(route.component, { navigator, route });
 				  	}
 			}} />
