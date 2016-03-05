@@ -11,15 +11,20 @@ import React, {
 	View,
 } from 'react-native';
 
-var enums = require("../../common/enums");
+var enums = require("../../common/enums"),
+	API = require("../../common/api.manager");
 
 export default class LoginPage extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			isBusy: false
+			isBusy: false,
+			accounts: {},
+			email: "",
+			password: "",
 		};
+		// AsyncStorage.removeItem(enums.STORAGE.ACCOUNTS, function(){});
 	}
 
    componentWillMount() {
@@ -29,8 +34,8 @@ export default class LoginPage extends Component {
          if(err) {
             console.log("Error finding accounts", err);
          } else if(data) {
-            console.log("Has accounts in storage");
             _data = JSON.parse(data);
+				console.log("Has accounts in storage", _data);
          } else {
             console.log("No accounts set, proceed with normal login screen");
          }
@@ -38,8 +43,21 @@ export default class LoginPage extends Component {
    }
 
 	doLogin() {
-		if(!this.state.isBusy) {
-			this.setState({isBusy: true});
+		this.setState({isBusy: true});
+		if(!this.state.isBusy && this.state.email) {
+			var response = API.login({
+				email: this.state.email,
+				password: this.state.password,
+			});
+			response.then((data) => {
+				if(data.token) {
+					var accounts = this.state.accounts;
+					accounts[data.email] = data;
+					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
+				} else {
+					//auth error
+				}
+			}).done();
 		}
 	}
 
@@ -55,12 +73,14 @@ export default class LoginPage extends Component {
 						keyboardType="email-address"
 						autoCorrect={false}
 						style={styles.txt}
+						onChangeText={(text) => this.setState({email: text})}
 						autoCapitalize="none"
 						placeholder="Email" />
 
 					<TextInput
 						style={styles.txt}
 						secureTextEntry={true}
+						onChangeText={(text) => this.setState({password: text})}
 						placeholder="Password" />
 
 					<TouchableOpacity style={styles.loginBtn}
@@ -69,7 +89,7 @@ export default class LoginPage extends Component {
 						<View>
 							{
 								this.state.isBusy ?
-								<ActivityIndicatorIOS style={[styles.centering, {height: 20}]} /> :
+								<ActivityIndicatorIOS color={'#BBA1C9'} style={[styles.centering, {height: 20}]} /> :
 								<Text style={styles.btnTxt}>Login</Text>
 							}
 						</View>
