@@ -4,11 +4,14 @@ import React, {
 	Component,
 	StyleSheet,
 	Text,
+   AsyncStorage,
 	TextInput,
 	TouchableOpacity,
 	ActivityIndicatorIOS,
 	View,
 } from 'react-native';
+
+var enums = require("../../common/enums");
 
 export default class LoginPage extends Component {
 
@@ -18,6 +21,21 @@ export default class LoginPage extends Component {
 			isBusy: false
 		};
 	}
+
+   componentWillMount() {
+      var _data, self = this;
+
+      AsyncStorage.getItem(enums.STORAGE.ACCOUNTS, function (err, data) {
+         if(err) {
+            console.log("Error finding accounts", err);
+         } else if(data) {
+            console.log("Has accounts in storage");
+            _data = JSON.parse(data);
+         } else {
+            console.log("No accounts set, proceed with normal login screen");
+         }
+      });
+   }
 
 	doLogin() {
 		if(!this.state.isBusy) {
