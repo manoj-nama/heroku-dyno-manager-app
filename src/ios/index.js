@@ -11,6 +11,7 @@ import React, {
 
 import LoginPage from './pages/login.view';
 import AccountPage from './pages/account.view';
+import Nav from './pages/nav.view';
 
 var enums = require("../common/enums"),
 	API = require("../common/api.manager");
@@ -30,7 +31,7 @@ export default class HerokuApp extends Component {
 
       AsyncStorage.getItem(enums.STORAGE.ACCOUNTS, function (err, data) {
          if(data) {
-         	self.setState({initialPage: AccountPage, accountCheck: true});
+         	self.setState({initialPage: Nav, accountCheck: true});
          } else {
          	self.setState({accountCheck: true});
          }
