@@ -97,7 +97,7 @@ export default class AccountPage extends Component {
 	}
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
 	centering: {
 		flex: 1,
 		alignItems: 'center',
