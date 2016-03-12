@@ -11,7 +11,7 @@ import React, {
 	View,
 } from 'react-native';
 
-import AccountPage from './account.view';
+import Nav from './nav.view';
 
 var enums = require("../../common/enums"),
 	API = require("../../common/api.manager");
@@ -41,7 +41,7 @@ export default class LoginPage extends Component {
 					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
 					this.setState({isBusy: false});
 					this.props.navigator.replace({
-						component: AccountPage,
+						component: Nav,
 					});
 				} else {
 					//auth error
