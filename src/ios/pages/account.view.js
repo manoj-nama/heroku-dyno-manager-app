@@ -73,8 +73,14 @@ export default class AccountPage extends Component {
 						/>
 					</View>
 					<View style={styles.info}>
-						<Text style={styles.name}>{rowData.user.name}</Text>
-						<Text style={styles.email}>{rowData.email}</Text>
+					{
+						rowData.user.name ?
+						<View>
+							<Text style={styles.name}>{rowData.user.name}</Text>
+							<Text style={styles.email}>{rowData.email}</Text>
+						</View> :
+						<Text style={styles.name}>{rowData.email}</Text>
+					}				
 					</View>
 				</View>
 			</TouchableOpacity>
