@@ -54,6 +54,7 @@ export default class AccountPage extends Component {
    _renderRow(rowData) {
    	var imageUrl = ImageManager.get({
    		emailHash: rowData.user.emailHash,
+   		default: "retro",
    		size: 100,
    	});
 		return (
@@ -133,6 +134,7 @@ const styles = StyleSheet.create({
 	},
 	pic: {
 		width: 50,
+		backgroundColor: "#ccc",
 		borderRadius: 25,
 		height: 50,
 	},
