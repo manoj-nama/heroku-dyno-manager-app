@@ -36,7 +36,6 @@ export default class Nav extends Component {
 				if (index === 0) {
 					return null;
 				}
-				const previousRoute = navState.routeStack[index - 1]
 				return (
 					<TouchableOpacity
 						style={styles.backBtn}
@@ -100,6 +99,7 @@ var styles = StyleSheet.create({
 	navText: {
 		fontSize: 16,
 		marginVertical: 10,
+		color: "#fff",
 		paddingHorizontal: 10,
 	},
 	navTitle: {

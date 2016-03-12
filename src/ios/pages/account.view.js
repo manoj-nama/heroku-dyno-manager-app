@@ -13,6 +13,8 @@ import React, {
 	Navigator
 } from 'react-native';
 
+import AppsPage from "./apps.view";
+
 var enums = require("../../common/enums"),
 	ImageManager = require("../../common/image.manager"),
 	API = require("../../common/api.manager");
@@ -58,8 +60,10 @@ export default class AccountPage extends Component {
    		size: 100,
    	});
 		return (
-			<TouchableOpacity style={styles.listItemWrap} 
-				key={rowData.email}>
+			<TouchableOpacity 
+				style={styles.listItemWrap} 
+				key={rowData.email}
+				onPress={() => this.goToDetailPage(rowData)}>
 				<View style={styles.listItem}>
 					<View style={styles.picCol}>
 						<Image 
@@ -75,6 +79,15 @@ export default class AccountPage extends Component {
 				</View>
 			</TouchableOpacity>
 		);
+	}
+
+	goToDetailPage(data) {
+		this.props.navigator.push({ 
+			name: "Apps",
+			component: AppsPage,
+			params: data,
+			rightElement: null
+		});
 	}
 
 	render() {
