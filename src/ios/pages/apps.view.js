@@ -49,8 +49,13 @@ export default class AppsPage extends Component {
 				style={styles.listItemWrap} 
 				key={rowData.email}>
 				<View style={styles.listItem}>
-					<Text style={styles.name}>{rowData.name}</Text>
-					<Text style={styles.email}>{rowData.build_stack.name}</Text>
+					<View style={styles.picCol}>
+						<Icon style={styles.navIcon} name="dns" size={36} color="#477D7F" />
+					</View>
+					<View style={styles.info}>
+						<Text style={styles.name}>{rowData.name}</Text>
+						<Text style={styles.email}>{rowData.build_stack.name}</Text>
+					</View>
 				</View>
 			</TouchableOpacity>
 		);
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
 	},
 	nav: {
 		flex: 1,
-		backgroundColor: "#f5f5f5",
+		backgroundColor: "#eee",
 	},
 	container: {
 		alignItems: "center",
@@ -97,11 +102,23 @@ const styles = StyleSheet.create({
 	},
 	listItem: {
 		flex: 1,
+		alignItems: "center",
+		flexDirection: "row",
 		borderRadius: 4,
 		backgroundColor: "#fff",
 		padding: 10,
 		marginHorizontal: 10,
 		marginVertical: 5,
+	},
+	picCol: {
+		marginRight: 10,
+	},
+	pic: {
+		backgroundColor: "#ccc",
+		borderRadius: 25,
+	},
+	info: {
+		flex: 1,
 	},
 	name: {
 		fontWeight: "200",
