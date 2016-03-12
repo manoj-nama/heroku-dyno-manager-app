@@ -56,7 +56,7 @@ APIManager.prototype.apps = async function (options) {
 	try {
 		let response = await this.request(enums.ENDPOINTS.HEROKU.APPS, options);
 		let responseJson = await response.json();
-		console.log(responseJson);
+		return responseJson;
 	} catch(e) {
 		console.error(e);
 	}
