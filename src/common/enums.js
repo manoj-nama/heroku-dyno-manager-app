@@ -18,6 +18,10 @@ var obj = {
    	USER: {
    		ME: API_BASE + "/api/users/me"
    	}
+   },
+   IMAGE: {
+      BASE: "http://www.gravatar.com/avatar",
+      SECURE_BASE: "https://secure.gravatar.com/avatar"
    }
 };
 
