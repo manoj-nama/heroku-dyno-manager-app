@@ -6,6 +6,7 @@ import React, {
 	StyleSheet,
 	Text,
 	Image,
+	Alert,
 	TouchableOpacity,
 	AsyncStorage,
 	ActivityIndicatorIOS,
@@ -102,6 +103,22 @@ export default class AccountPage extends Component {
 
 	deleteAccount(data) {
 		console.log("removing ...", data.email);
+		Alert.alert(
+			"Delete Account",
+			"Are you sure you want to remove this account?",
+			[
+				{
+					text: "Cancel",
+					onPress: ()=>{console.log("Cancelled!!")},
+					style: "cancel"
+				},
+				{
+					text: "Delete",
+					onPress: ()=>{console.log("removing ...!!")},
+					style: "destructive"
+				},
+			]
+		)
 	}
 
    _renderRow(rowData) {
