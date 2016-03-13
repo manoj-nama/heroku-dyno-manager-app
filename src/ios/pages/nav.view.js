@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 
 import AccountPage from './account.view';
+import AddAccountPage from './account.add.view';
 
 var Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -20,12 +21,21 @@ export default class Nav extends Component {
 	}
 
 	render() {
-
 		const defaultRoute = {
 			name: "Accounts",
 			component: AccountPage,
 			rightElement: (
-				<TouchableOpacity style={styles.navIconBtn} activeOpacity={0.3}>
+				<TouchableOpacity 
+					style={styles.navIconBtn} 
+					onPress={()=> {
+						this.refs.mainNavigator.push({ 
+							name: "Add Account",
+							component: AddAccountPage,
+							params: {},
+							rightElement: null
+						});
+					}}
+					activeOpacity={0.3}>
 					<Icon style={styles.navIcon} name="person-add" size={30} color="#900" />
 				</TouchableOpacity>
 			)
@@ -60,6 +70,7 @@ export default class Nav extends Component {
 
 		return (
 			<Navigator
+				ref="mainNavigator"
 				automaticallyAdjustsScrollViewInsets={true}
 				navigationBar={
 					   <Navigator.NavigationBar style={styles.navBar} routeMapper={routeMapper} />
