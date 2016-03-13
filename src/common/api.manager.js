@@ -14,6 +14,20 @@ function APIManager() {
 	}
 }
 
+APIManager.prototype.parseUrl = function(url, data) {
+	var params = url.split("/:"),
+		parsed = url;
+	if(params && params.length) {
+		parsed = params[0];
+		for(let i = 1; i < params.length; i++) {
+			if(data.hasOwnProperty(params[i])) {
+				parsed += ("/" + data[params[i]]);
+			}
+		}
+	}
+	return parsed;
+};
+
 APIManager.prototype.request = function(url, data) {
 	try {
 		let headers = {
@@ -58,7 +72,8 @@ APIManager.prototype.apps = async function (options) {
 		let responseJson = await response.json();
 		return responseJson;
 	} catch(e) {
-		console.error(e);
+		console.log(e);
+		return [];
 	}
 };
 

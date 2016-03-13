@@ -37,16 +37,21 @@ export default class AccountPage extends Component {
 
       AsyncStorage.getItem(enums.STORAGE.ACCOUNTS, function (err, data) {
          if(data) {
-         	_data = JSON.parse(data);       
-         	for(let i in _data) {
-         		if(_data.hasOwnProperty(i)) {
-         			_accounts.push(_data[i]);
-         		}
+         	try {
+					_data = JSON.parse(data);       
+	         	for(let i in _data) {
+	         		if(_data.hasOwnProperty(i)) {
+	         			_accounts.push(_data[i]);
+	         		}
+	         	}
+	         	self.setState({
+	         		loading: false,
+	         		dataSource: self.state.dataSource.cloneWithRows(_accounts)
+	         	});
+         	} catch(e) {
+         		console.log(e);
          	}
-         	self.setState({
-         		loading: false,
-         		dataSource: self.state.dataSource.cloneWithRows(_accounts)
-         	});
+         	
          } else {
          	console.log("No data to show, that's strange..", err);
          }
