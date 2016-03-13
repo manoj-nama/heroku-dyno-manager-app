@@ -30,6 +30,7 @@ export default class Nav extends Component {
 					onPress={()=> {
 						this.refs.mainNavigator.push({ 
 							name: "Add Account",
+							id: "AddAccount",
 							component: AddAccountPage,
 							params: {},
 							rightElement: null

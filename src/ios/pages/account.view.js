@@ -78,7 +78,7 @@ export default class AccountPage extends Component {
 		}
 		var routes = this.props.navigator.getCurrentRoutes();
 		routes = routes.pop();
-		if(routes.name === "Add Account") {
+		if(routes.id === "AddAccount") {
 			this.extra.loaded = true;
 			this.extra.updated = false;
 		}
@@ -126,6 +126,7 @@ export default class AccountPage extends Component {
 	goToDetailPage(data) {
 		this.props.navigator.push({ 
 			name: "Apps",
+			id: "Apps",
 			component: AppsPage,
 			params: data,
 			rightElement: null

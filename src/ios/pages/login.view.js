@@ -41,6 +41,7 @@ export default class LoginPage extends Component {
 					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
 					this.setState({isBusy: false});
 					this.props.navigator.replace({
+						id: "Nav",
 						component: Nav,
 					});
 				} else {

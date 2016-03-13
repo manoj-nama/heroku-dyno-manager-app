@@ -53,7 +53,7 @@ export default class HerokuApp extends Component {
 		return (
 			<Navigator
 				automaticallyAdjustsScrollViewInsets={true}
-				initialRoute={{name: 'Login', component: self.state.initialPage}}
+				initialRoute={{name: 'Login', component: self.state.initialPage, id: "Login"}}
 				configureScene={() => {
 				  return Navigator.SceneConfigs.PushFromRight;
 				}}
