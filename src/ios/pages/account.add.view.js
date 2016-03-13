@@ -19,7 +19,7 @@ export default class AddAccountPage extends Component {
 
 	render() {
 		return (
-			<View style={styles.centering}>
+			<View style={[styles.nav, styles.centering]}>
 				<Text>Add more accounts here</Text>
 			</View>
 		);
@@ -27,6 +27,9 @@ export default class AddAccountPage extends Component {
 };
 
 const styles = StyleSheet.create({
+	nav: {
+		backgroundColor: "#eee",
+	},
 	centering: {
 		flex: 1,
 		alignItems: "center",
