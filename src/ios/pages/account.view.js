@@ -16,6 +16,7 @@ import React, {
 import AppsPage from "./apps.view";
 
 var enums = require("../../common/enums"),
+	Icon = require('react-native-vector-icons/MaterialIcons'),
 	ImageManager = require("../../common/image.manager"),
 	API = require("../../common/api.manager");
 
@@ -89,6 +90,20 @@ export default class AccountPage extends Component {
       this.fetchAccountsFromStorage();
    }
 
+   goToDetailPage(data) {
+		this.props.navigator.push({ 
+			name: "Apps",
+			id: "Apps",
+			component: AppsPage,
+			params: data,
+			rightElement: null
+		});
+	}
+
+	deleteAccount(data) {
+		console.log("removing ...", data.email);
+	}
+
    _renderRow(rowData) {
    	var imageUrl = ImageManager.get({
    		emailHash: rowData.user.emailHash,
@@ -118,19 +133,14 @@ export default class AccountPage extends Component {
 						<Text style={styles.name}>{rowData.email}</Text>
 					}				
 					</View>
+					<TouchableOpacity onPress={()=> this.deleteAccount(rowData)}>
+						<View style={styles.navIcon}>
+							<Icon name="delete-forever" size={36} color="#c22" />
+						</View>
+					</TouchableOpacity>
 				</View>
 			</TouchableOpacity>
 		);
-	}
-
-	goToDetailPage(data) {
-		this.props.navigator.push({ 
-			name: "Apps",
-			id: "Apps",
-			component: AppsPage,
-			params: data,
-			rightElement: null
-		});
 	}
 
 	render() {
@@ -196,6 +206,14 @@ const styles = StyleSheet.create({
 	},
 	info: {
 		flex: 1,
+	},
+	navIcon: {
+		alignItems: "center",
+		justifyContent: "center",
+		width: 50,
+		height: 50,
+		borderRadius: 25,
+		backgroundColor: "#eee",
 	},
 	name: {
 		fontWeight: "200",
