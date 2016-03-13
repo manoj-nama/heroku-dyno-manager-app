@@ -28,10 +28,14 @@ export default class AccountPage extends Component {
 			loading: true,
 			dataSource: ds.cloneWithRows([])
 		};
+		this.extra = {
+			loaded: true,
+			updated: false,
+		};
 	}
 
-	componentWillMount() {
-      var _data, 
+	fetchAccountsFromStorage() {
+		var _data, 
       	_accounts = [],
       	self = this;
 
@@ -44,6 +48,8 @@ export default class AccountPage extends Component {
 	         			_accounts.push(_data[i]);
 	         		}
 	         	}
+	         	self.extra.updated = true;
+	         	self.extra.loaded = true;
 	         	self.setState({
 	         		loading: false,
 	         		dataSource: self.state.dataSource.cloneWithRows(_accounts)
@@ -56,6 +62,31 @@ export default class AccountPage extends Component {
          	console.log("No data to show, that's strange..", err);
          }
       });
+	}
+
+	componentWillUpdate() {
+		if(!this.extra.updated) {
+			console.log("Refetching the accounts");
+			this.fetchAccountsFromStorage();
+		}
+	}
+
+	shouldComponentUpdate() {
+		var _retVal = this.extra.loaded;
+		if(this.extra.loaded) {
+			this.extra.loaded = false;
+		}
+		var routes = this.props.navigator.getCurrentRoutes();
+		routes = routes.pop();
+		if(routes.name === "Add Account") {
+			this.extra.loaded = true;
+			this.extra.updated = false;
+		}
+		return _retVal;
+	}
+
+	componentWillMount() {
+      this.fetchAccountsFromStorage();
    }
 
    _renderRow(rowData) {

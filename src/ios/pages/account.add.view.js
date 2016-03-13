@@ -45,7 +45,6 @@ export default class AddAccountPage extends Component {
 	}
 
 	addAccount() {
-		console.log("Adding account mate ...", this.state.email, this.state.password);
 		if(!this.state.isBusy && this.state.email) {
 			var response = API.login({
 				email: this.state.email,
@@ -53,10 +52,12 @@ export default class AddAccountPage extends Component {
 			});
 			response.then((data) => {
 				if(data.token) {
-					var accounts = this.state.accounts;
+					var accounts = this.state.accounts,
+						self = this;
 					accounts[data.email] = data;
-					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
-					this.props.navigator.pop();
+					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts), ()=> {
+						self.props.navigator.pop();
+					});
 				} else {
 					//auth error
 				}
