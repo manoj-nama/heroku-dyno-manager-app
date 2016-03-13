@@ -28,12 +28,13 @@ APIManager.prototype.parseUrl = function(url, data) {
 	return parsed;
 };
 
-APIManager.prototype.request = function(url, data) {
+APIManager.prototype.request = function(url, data = {}) {
 	try {
 		let headers = {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		};
+		url = this.parseUrl(url, data);
 		console.log("TOKEN:", this.getToken());
 		if(this.hasToken) {
 			headers["Authorization"] = "Bearer " + this.getToken();
