@@ -13,7 +13,7 @@ import React, {
 } from 'react-native';
 
 var enums = require("../../common/enums"),
-	Icon = require('react-native-vector-icons/MaterialIcons'),
+	Icon = require('react-native-vector-icons/Ionicons'),
 	API = require("../../common/api.manager");
 
 export default class AppsPage extends Component {
@@ -50,7 +50,7 @@ export default class AppsPage extends Component {
 				key={rowData.email}>
 				<View style={styles.listItem}>
 					<View style={styles.picCol}>
-						<Icon style={styles.navIcon} name="dns" size={36} color="#477D7F" />
+						<Icon style={styles.navIcon} name="cube" size={36} color="#477D7F" />
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.name}>{rowData.name}</Text>
