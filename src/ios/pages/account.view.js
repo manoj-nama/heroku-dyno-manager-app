@@ -28,7 +28,8 @@ export default class AccountPage extends Component {
 		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 			loading: true,
-			dataSource: ds.cloneWithRows([])
+			dataSource: ds.cloneWithRows([]),
+			accounts: {}
 		};
 		this.extra = {
 			loaded: true,
@@ -50,10 +51,10 @@ export default class AccountPage extends Component {
 	         			_accounts.push(_data[i]);
 	         		}
 	         	}
-	         	self.extra.updated = true;
-	         	self.extra.loaded = true;
+	         	self.forceStateUpdate();
 	         	self.setState({
 	         		loading: false,
+	         		accounts: _data,
 	         		dataSource: self.state.dataSource.cloneWithRows(_accounts)
 	         	});
          	} catch(e) {
@@ -71,6 +72,11 @@ export default class AccountPage extends Component {
 			console.log("Refetching the accounts");
 			this.fetchAccountsFromStorage();
 		}
+	}
+
+	forceStateUpdate() {
+		this.extra.updated = true;
+   	this.extra.loaded = true;
 	}
 
 	shouldComponentUpdate() {
@@ -101,20 +107,35 @@ export default class AccountPage extends Component {
 		});
 	}
 
-	deleteAccount(data) {
+	_deleteAndSyncAccounts(data) {
+		var _accounts = this.state.accounts,
+			self = this;
+		if(_accounts.hasOwnProperty(data.email)) {
+			delete _accounts[data.email];
+			AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(_accounts), ()=>{
+				self.forceStateUpdate();
+				self.setState({
+         		accounts: _accounts,
+         		dataSource: self.state.dataSource.cloneWithRows(_accounts)
+				});
+			});
+		}
+	}
+
+	confirmDelete(data) {
 		console.log("removing ...", data.email);
+		var self = this;
 		Alert.alert(
 			"Delete Account",
 			"Are you sure you want to remove this account?",
 			[
 				{
 					text: "Cancel",
-					onPress: ()=>{console.log("Cancelled!!")},
 					style: "cancel"
 				},
 				{
 					text: "Delete",
-					onPress: ()=>{console.log("removing ...!!")},
+					onPress: ()=>{self._deleteAndSyncAccounts(data)},
 					style: "destructive"
 				},
 			]
@@ -150,7 +171,7 @@ export default class AccountPage extends Component {
 						<Text style={styles.name}>{rowData.email}</Text>
 					}				
 					</View>
-					<TouchableOpacity onPress={()=> this.deleteAccount(rowData)}>
+					<TouchableOpacity onPress={()=> this.confirmDelete(rowData)}>
 						<View style={styles.navIcon}>
 							<Icon name="delete-forever" size={36} color="#c22" />
 						</View>
