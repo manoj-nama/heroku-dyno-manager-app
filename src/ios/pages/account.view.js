@@ -15,6 +15,7 @@ import React, {
 } from 'react-native';
 
 import AppsPage from "./apps.view";
+import LoginPage from "./login.view";
 
 var enums = require("../../common/enums"),
 	Icon = require('react-native-vector-icons/MaterialIcons'),
@@ -35,6 +36,7 @@ export default class AccountPage extends Component {
 			loaded: true,
 			updated: false,
 		};
+		console.log(this);
 	}
 
 	fetchAccountsFromStorage() {
@@ -109,16 +111,29 @@ export default class AccountPage extends Component {
 
 	_deleteAndSyncAccounts(data) {
 		var _accounts = this.state.accounts,
+			finalAccountsCount = Object.keys(_accounts).length - 1,
+			action = "setItem",
 			self = this;
+
 		if(_accounts.hasOwnProperty(data.email)) {
 			delete _accounts[data.email];
-			AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(_accounts), ()=>{
-				self.forceStateUpdate();
-				self.setState({
-         		accounts: _accounts,
-         		dataSource: self.state.dataSource.cloneWithRows(_accounts)
+			if(finalAccountsCount) {
+				AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(_accounts), ()=>{
+					self.forceStateUpdate();
+					self.setState({
+	         		accounts: _accounts,
+	         		dataSource: self.state.dataSource.cloneWithRows(_accounts)
+					});
 				});
-			});
+			} else {
+				AsyncStorage.removeItem(enums.STORAGE.ACCOUNTS,() => {
+					self.props.parentNav.replace({
+						id: "Login",
+						name: "Login",
+						component: LoginPage,
+					});
+				});
+			}
 		}
 	}
 

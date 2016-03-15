@@ -59,7 +59,10 @@ export default class HerokuApp extends Component {
 				}}
 				renderScene={(route, navigator) => {
 					if (route.component) {
-				   	return React.createElement(route.component, { navigator, route });
+				   	return React.createElement(route.component, { 
+				   		parentNav: navigator, 
+				   		route: route 
+				   	});
 				  	}
 			}} />
 		);

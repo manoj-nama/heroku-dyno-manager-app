@@ -40,7 +40,7 @@ export default class LoginPage extends Component {
 					accounts[data.email] = data;
 					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
 					this.setState({isBusy: false});
-					this.props.navigator.replace({
+					this.props.parentNav.replace({
 						id: "Nav",
 						component: Nav,
 					});

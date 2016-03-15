@@ -82,7 +82,11 @@ export default class Nav extends Component {
 				}}
 				renderScene={(route, navigator) => {
 					if (route.component) {
-				   	return React.createElement(route.component, { navigator, route });
+				   	return React.createElement(route.component, { 
+				   		parentNav: this.props.parentNav,
+				   		navigator: navigator, 
+				   		route: route
+				   	});
 				  	}
 			}} />
 		);
