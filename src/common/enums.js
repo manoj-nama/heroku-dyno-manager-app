@@ -14,6 +14,12 @@ var obj = {
    		APPS: API_BASE + "/api/heroku",
    		DYNOS: API_BASE + "/api/heroku/dynos/:appId",
    		RESTART: API_BASE + "/api/heroku/restart/:appId/:dynoId",
+         COLLABORATOR: {
+            LIST: API_BASE + "/api/heroku/collaborators/list/:appId",
+            ADD: API_BASE + "/api/heroku/collaborators/create/:appId",
+            SHOW: API_BASE + "/api/heroku/collaborators/show/:appId/:collaboratorId",
+            REMOVE: API_BASE + "/api/heroku/collaborators/remove/:appId/:collaboratorId"
+         }
    	},
    	USER: {
    		ME: API_BASE + "/api/users/me"
