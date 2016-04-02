@@ -124,7 +124,18 @@ APIManager.prototype.showCollaborator = async function (options) {
 
 APIManager.prototype.addCollaborator = async function (options) {
 	try {
-		let response = await this.request(enums.ENDPOINTS.HEROKU.COLLABORATOR.SHOW, options);
+		let response = await this.request(enums.ENDPOINTS.HEROKU.COLLABORATOR.ADD, options);
+		let responseJson = await response.json();
+		return responseJson;
+	} catch(e) {
+		console.log(e);
+		return {};
+	}
+};
+
+APIManager.prototype.removeCollaborator = async function (options) {
+	try {
+		let response = await this.request(enums.ENDPOINTS.HEROKU.COLLABORATOR.REMOVE, options);
 		let responseJson = await response.json();
 		return responseJson;
 	} catch(e) {
