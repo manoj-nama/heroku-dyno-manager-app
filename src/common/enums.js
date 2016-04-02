@@ -19,6 +19,10 @@ var obj = {
             ADD: API_BASE + "/api/heroku/collaborators/create/:appId",
             SHOW: API_BASE + "/api/heroku/collaborators/show/:appId/:collaboratorId",
             REMOVE: API_BASE + "/api/heroku/collaborators/remove/:appId/:collaboratorId"
+         },
+         RELEASE: {
+            LIST: API_BASE + "/api/heroku/releases/list/:appId",
+            ROLLBACK: API_BASE + "/api/heroku/releases/rollback/:appId/:releaseId"
          }
    	},
    	USER: {
