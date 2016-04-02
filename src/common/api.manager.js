@@ -111,6 +111,17 @@ APIManager.prototype.collaborators = async function (options) {
 	}
 };
 
+APIManager.prototype.showCollaborator = async function (options) {
+	try {
+		let response = await this.request(enums.ENDPOINTS.HEROKU.COLLABORATOR.SHOW, options);
+		let responseJson = await response.json();
+		return responseJson;
+	} catch(e) {
+		console.log(e);
+		return {};
+	}
+};
+
 var Manager = new APIManager();
 
 module.exports = Manager;
