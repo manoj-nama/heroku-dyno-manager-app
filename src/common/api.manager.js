@@ -78,6 +78,17 @@ APIManager.prototype.apps = async function (options) {
 	}
 };
 
+APIManager.prototype.dynos = async function (options) {
+	try {
+		let response = await this.request(enums.ENDPOINTS.HEROKU.DYNOS, options);
+		let responseJson = await response.json();
+		return responseJson;
+	} catch(e) {
+		console.log(e);
+		return [];
+	}
+};
+
 var Manager = new APIManager();
 
 module.exports = Manager;
