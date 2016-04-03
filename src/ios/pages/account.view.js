@@ -189,7 +189,7 @@ export default class AccountPage extends Component {
 					</View>
 					<TouchableOpacity onPress={()=> this.confirmDelete(rowData)}>
 						<View style={styles.navIcon}>
-							<Icon name="delete-forever" size={36} color="#c22" />
+							<Icon name="delete-forever" size={30} color="#c22" />
 						</View>
 					</TouchableOpacity>
 				</View>
