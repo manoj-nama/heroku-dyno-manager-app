@@ -29,9 +29,10 @@ export default class DynoPage extends Component {
 			<View style={[styles.nav, styles.centering]}>
 			{
 				this.state.isReady ? 
-					<Text>This is dynos view</Text> : <View style={styles.centering}>
-							<ActivityIndicatorIOS color={'#444'} size={'large'} />
-						</View>
+					<Text>This is dynos view</Text> : 
+					<View style={styles.centering}>
+						<ActivityIndicatorIOS color={'#444'} size={'large'} />
+					</View>
 			}
 			</View>
 		);
