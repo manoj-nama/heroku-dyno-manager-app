@@ -7,6 +7,7 @@ import React, {
 	Text,
 	Image,
 	Alert,
+	StatusBar,
 	TouchableOpacity,
 	AsyncStorage,
 	ActivityIndicatorIOS,
@@ -199,6 +200,7 @@ export default class AccountPage extends Component {
 	render() {
 		return (
 			<View style={styles.nav} automaticallyAdjustsScrollViewInsets={true}>
+				<StatusBar barStyle="light-content" />
 				<ListView style={styles.list}
 					contentContainerStyle={styles.container}
 					pageSize={5}

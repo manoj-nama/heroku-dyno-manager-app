@@ -134,6 +134,6 @@ var styles = StyleSheet.create({
 		paddingHorizontal: 15,
 	},
 	navBar: {
-		backgroundColor: "#477D7F",
+		backgroundColor: "#777",
 	},
 });

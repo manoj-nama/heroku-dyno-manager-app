@@ -7,6 +7,7 @@ import React, {
 	Navigator,
 	Text,
 	Image,
+	StatusBar,
 	StyleSheet,
 	TouchableOpacity,
 	ActivityIndicatorIOS,
@@ -64,6 +65,7 @@ export default class AppsPage extends Component {
 	render() {
 		return (
 			<View style={styles.nav} automaticallyAdjustsScrollViewInsets={true}>
+				<StatusBar barStyle="light-content" />
 			   {
 			   	this.state.loading ?
 			   	<View style={styles.centering}>
