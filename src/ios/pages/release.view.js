@@ -7,7 +7,7 @@ import React, {
 	StyleSheet
 } from "react-native";
 
-export default class DynoPage extends Component {
+export default class ReleasePage extends Component {
 
 	constructor(props) {
 		super(props);
@@ -16,7 +16,7 @@ export default class DynoPage extends Component {
 	render() {
 		return (
 			<View style={styles.nav}>
-				<Text style={styles.centering}>This is release view</Text>
+				<Text style={styles.centering}>This is the release view</Text>
 			</View>	
 		);
 	}
