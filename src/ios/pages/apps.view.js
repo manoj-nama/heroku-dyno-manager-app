@@ -13,6 +13,8 @@ import React, {
 	ActivityIndicatorIOS,
 } from 'react-native';
 
+import AppNavPage from "./app.nav.view";
+
 var enums = require("../../common/enums"),
 	Icon = require('react-native-vector-icons/Ionicons'),
 	API = require("../../common/api.manager");
@@ -44,11 +46,22 @@ export default class AppsPage extends Component {
 		}).done();
 	}
 
+	goToDetailPage(rowData) {
+		this.props.parentNav.push({
+			name: "Apps",
+			id: "AppNavPage",
+			component: AppNavPage,
+			params: rowData,
+			rightElement: null
+		});
+	}
+
 	_renderRow(rowData) {
 		return (
 			<TouchableOpacity 
 				style={styles.listItemWrap} 
-				key={rowData.email}>
+				key={rowData.email}
+				onPress={() => this.goToDetailPage(rowData)}>
 				<View style={styles.listItem}>
 					<View style={styles.picCol}>
 						<Icon style={styles.navIcon} name="cube" size={36} color="#444" />
