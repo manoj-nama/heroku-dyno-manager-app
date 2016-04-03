@@ -45,7 +45,7 @@ export default class HerokuApp extends Component {
 		if(!self.state.accountCheck) {
 			return (
 				<View style={styles.centering}>
-					<ActivityIndicatorIOS color={'#3A1051'} size={'large'} />
+					<ActivityIndicatorIOS color={'#444'} size={'large'} />
 				</View>
 			);
 		}

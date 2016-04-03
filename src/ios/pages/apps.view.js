@@ -51,7 +51,7 @@ export default class AppsPage extends Component {
 				key={rowData.email}>
 				<View style={styles.listItem}>
 					<View style={styles.picCol}>
-						<Icon style={styles.navIcon} name="cube" size={36} color="#477D7F" />
+						<Icon style={styles.navIcon} name="cube" size={36} color="#444" />
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.name}>{rowData.name}</Text>
@@ -69,7 +69,7 @@ export default class AppsPage extends Component {
 			   {
 			   	this.state.loading ?
 			   	<View style={styles.centering}>
-						<ActivityIndicatorIOS color={'#3A1051'} size={'large'} />
+						<ActivityIndicatorIOS color={'#444'} size={'large'} />
 					</View> : <ListView style={styles.list}
 					contentContainerStyle={styles.container}
 					pageSize={5}

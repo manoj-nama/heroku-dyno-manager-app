@@ -87,7 +87,7 @@ export default class Nav extends Component {
 				   		navigator: navigator, 
 				   		route: route
 				   	});
-				  	}
+			  	}
 			}} />
 		);
 	}
