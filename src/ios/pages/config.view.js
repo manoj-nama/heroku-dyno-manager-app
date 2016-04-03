@@ -15,7 +15,7 @@ export default class ConfigPage extends Component {
 
 	render() {
 		return (
-			<View style={styles.nav}>
+			<View style={[styles.nav, styles.centering]}>
 				<Text style={styles.centering}>This is the config vars view</Text>
 			</View>	
 		);
@@ -24,7 +24,6 @@ export default class ConfigPage extends Component {
 
 const styles = StyleSheet.create({
 	centering: {
-		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

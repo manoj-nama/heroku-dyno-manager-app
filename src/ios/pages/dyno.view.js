@@ -15,8 +15,8 @@ export default class DynoPage extends Component {
 
 	render() {
 		return (
-			<View style={styles.nav}>
-				<Text style={styles.centering}>This is release view</Text>
+			<View style={[styles.nav, styles.centering]}>
+				<Text style={styles.centering}>This is dynos view</Text>
 			</View>	
 		);
 	}
@@ -24,7 +24,6 @@ export default class DynoPage extends Component {
 
 const styles = StyleSheet.create({
 	centering: {
-		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
