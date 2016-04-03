@@ -7,6 +7,7 @@ import React, {
 	Navigator,
 	Text,
 	Image,
+	InteractionManager,
 	StatusBar,
 	StyleSheet,
 	TouchableOpacity,
@@ -27,6 +28,7 @@ export default class AppsPage extends Component {
 		API.setToken(props.route.params.token);
 		this.state = {
 			loading: true,
+			isReady: false,
 			user: props.route.params,
 			dataSource: ds.cloneWithRows([]),
 		};
@@ -44,6 +46,12 @@ export default class AppsPage extends Component {
          	});
 			}
 		}).done();
+	}
+
+	componentDidMount() {
+		InteractionManager.runAfterInteractions(() => {
+			this.setState({isReady: true});
+		});
 	}
 
 	goToDetailPage(rowData) {
@@ -80,13 +88,14 @@ export default class AppsPage extends Component {
 			<View style={styles.nav} automaticallyAdjustsScrollViewInsets={true}>
 				<StatusBar barStyle="light-content" />
 			   {
-			   	this.state.loading ?
+			   	(this.state.loading || !this.state.isReady) ?
 			   	<View style={styles.centering}>
 						<ActivityIndicatorIOS color={'#444'} size={'large'} />
-					</View> : <ListView style={styles.list}
-					contentContainerStyle={styles.container}
-					pageSize={5}
-					automaticallyAdjustContentInsets={true}
+					</View> : 
+					<ListView style={styles.list}
+						contentContainerStyle={styles.container}
+						pageSize={5}
+						automaticallyAdjustContentInsets={true}
 			    	dataSource={this.state.dataSource}
 			    	renderRow={this._renderRow.bind(this)} />
 		    	}

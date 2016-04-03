@@ -28,7 +28,6 @@ export default class AppNavPage extends Component {
 			selectedTab: enums.TABS.DYNO,
 			ready: false
 		}
-		console.log(props);
 	}
 
 	getNavigator(defaultRoute) {
