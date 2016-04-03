@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 	nav: {
 		flexDirection: 'column',
 		flex: 1,
-      backgroundColor: "#73478A",
+      backgroundColor: "#777",
 	},
 	copy: {
 		paddingTop: 40,
@@ -125,19 +125,19 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 5,
 		margin: 10,
-      backgroundColor: "#BBA1C9",
+    backgroundColor: "#aaa",
 		borderWidth: 1,
-      color: "#3A1051",
-		borderColor: "#3A1051",
+    color: "#275355",
+		borderColor: "#555",
 	},
 	loginBtn: {
 		paddingVertical: 10,
 		marginHorizontal: 70,
 		marginVertical: 20,
 		borderRadius: 5,
-		backgroundColor: "#3A1051",
+		backgroundColor: "#666",
 		borderWidth: 1,
-		borderColor: "#3A1051",
+		borderColor: "#555",
 		alignItems: 'center',
 	},
 	btnTxt: {
