@@ -37,7 +37,6 @@ export default class AccountPage extends Component {
 			loaded: true,
 			updated: false,
 		};
-		console.log(this);
 	}
 
 	fetchAccountsFromStorage() {
