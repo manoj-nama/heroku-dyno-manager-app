@@ -16,7 +16,9 @@ import ReleasePage from "./release.view";
 import ConfigPage from "./config.view";
 import CollaboratorPage from "./collaborator.view";
 
-var enums = require("../../common/enums");
+var enums = require("../../common/enums"),
+	Icon = require('react-native-vector-icons/MaterialIcons'),
+	ImageManager = require("../../common/image.manager");
 
 export default class AppNavPage extends Component {
 
@@ -78,9 +80,10 @@ export default class AppNavPage extends Component {
 
 	render() {
 		return (
-			<TabBarIOS tintColor="#fc0">
-				<TabBarIOS.Item
+			<TabBarIOS tintColor="#000">
+				<Icon.TabBarItemIOS
 					title={enums.TABS.DYNO}
+					iconName="fiber-smart-record"
 					selected={this.state.selectedTab === enums.TABS.DYNO}
 					onPress={() => {
 						this.setState({
@@ -88,10 +91,12 @@ export default class AppNavPage extends Component {
 						});
 					}}>
 					{this.getNavigator({name: enums.TABS.DYNO, component: DynoPage})}
-				</TabBarIOS.Item>
+				</Icon.TabBarItemIOS>
 
-				<TabBarIOS.Item
+				<Icon.TabBarItemIOS
 					title={enums.TABS.RELEASE}
+					iconName="bookmark-border"
+					selectedIconName="bookmark"
 					selected={this.state.selectedTab === enums.TABS.RELEASE}
 					onPress={() => {
 						this.setState({
@@ -99,10 +104,11 @@ export default class AppNavPage extends Component {
 						});
 					}}>
 					{this.getNavigator({name: enums.TABS.RELEASE, component: ReleasePage})}
-				</TabBarIOS.Item>
+				</Icon.TabBarItemIOS>
 
-				<TabBarIOS.Item
+				<Icon.TabBarItemIOS
 					title={enums.TABS.CONFIG}
+					iconName="settings-applications"
 					selected={this.state.selectedTab === enums.TABS.CONFIG}
 					onPress={() => {
 						this.setState({
@@ -110,10 +116,12 @@ export default class AppNavPage extends Component {
 						});
 					}}>
 					{this.getNavigator({name: enums.TABS.CONFIG, component: ConfigPage})}
-				</TabBarIOS.Item>
+				</Icon.TabBarItemIOS>
 
-				<TabBarIOS.Item
+				<Icon.TabBarItemIOS
 					title={enums.TABS.COLLABORATOR}
+					iconName="people-outline"
+					selectedIconName="people"
 					selected={this.state.selectedTab === enums.TABS.COLLABORATOR}
 					onPress={() => {
 						this.setState({
@@ -121,7 +129,7 @@ export default class AppNavPage extends Component {
 						});
 					}}>
 					{this.getNavigator({name: enums.TABS.COLLABORATOR, component: CollaboratorPage})}
-				</TabBarIOS.Item>
+				</Icon.TabBarItemIOS>
 
 			</TabBarIOS>
 		);
