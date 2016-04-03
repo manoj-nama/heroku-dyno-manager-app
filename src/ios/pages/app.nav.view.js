@@ -131,6 +131,16 @@ export default class AppNavPage extends Component {
 					{this.getNavigator({name: enums.TABS.COLLABORATOR, component: CollaboratorPage})}
 				</Icon.TabBarItemIOS>
 
+				<Icon.TabBarItemIOS
+					title={enums.TABS.APPS}
+					iconName="bubble-chart"
+					selectedIconName="people"
+					selected={this.state.selectedTab === enums.TABS.APPS}
+					onPress={() => {
+						this.props.parentNav.pop();
+					}}>
+				</Icon.TabBarItemIOS>
+
 			</TabBarIOS>
 		);
 	}

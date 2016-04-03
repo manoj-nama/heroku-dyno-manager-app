@@ -9,7 +9,8 @@ var obj = {
       DYNO: "Dynos",
       RELEASE: "Releases",
       CONFIG: "Config",
-      COLLABORATOR: "Collaborator"
+      APPS: "Apps",
+      COLLABORATOR: "Collaborators"
    },
    ENDPOINTS: {
    	API_BASE: API_BASE,
