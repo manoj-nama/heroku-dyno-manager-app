@@ -23,7 +23,8 @@ export default class AppNavPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedTab: enums.TABS.DYNO
+			selectedTab: enums.TABS.DYNO,
+			ready: false
 		}
 		console.log(props);
 	}
