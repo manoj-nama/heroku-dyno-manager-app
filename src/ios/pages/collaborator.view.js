@@ -4,6 +4,8 @@ import React, {
 	Component,
 	View,
 	Text,
+	InteractionManager,
+	ActivityIndicatorIOS,
 	StyleSheet
 } from "react-native";
 
@@ -11,13 +13,28 @@ export default class CollaboratorPage extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			isReady: false
+		};
+	}
+
+	componentDidMount() {
+		InteractionManager.runAfterInteractions(() => {
+			this.setState({isReady: true});
+		});
 	}
 
 	render() {
 		return (
 			<View style={[styles.nav, styles.centering]}>
-				<Text style={styles.centering}>This is the collaborator view</Text>
-			</View>	
+			{
+				this.state.isReady ? 
+					<Text>This is the collaborator view</Text> : 
+					<View style={styles.centering}>
+						<ActivityIndicatorIOS color={'#444'} size={'large'} />
+					</View>
+			}
+			</View>
 		);
 	}
 };
