@@ -4,18 +4,41 @@ import React, {
 	Component,
 	View,
 	Text,
+	ListView,
 	InteractionManager,
 	ActivityIndicatorIOS,
 	StyleSheet
 } from "react-native";
 
+var enums = require("../../common/enums"),
+	Icon = require('react-native-vector-icons/Ionicons'),
+	API = require("../../common/api.manager");
+
 export default class DynoPage extends Component {
 
 	constructor(props) {
 		super(props);
+		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			isReady: false
+			isReady: false,
+			loading: true,
+			app: props.route.params,
+			dataSource: ds.cloneWithRows([]),
 		};
+	}
+
+	componentWillMount() {
+		var response = API.dynos({appId: this.state.app.id}),
+			self = this;
+
+		response.then((data) => {
+			if(data) {
+				self.setState({
+       		loading: false,
+       		dataSource: self.state.dataSource.cloneWithRows(data)
+       	});
+			}
+		}).done();
 	}
 
 	componentDidMount() {
@@ -28,11 +51,11 @@ export default class DynoPage extends Component {
 		return (
 			<View style={[styles.nav, styles.centering]}>
 			{
-				this.state.isReady ? 
-					<Text>This is dynos view</Text> : 
-					<View style={styles.centering}>
-						<ActivityIndicatorIOS color={'#444'} size={'large'} />
-					</View>
+				(!this.state.isReady || this.state.loading) ? 
+				<View style={styles.centering}>
+					<ActivityIndicatorIOS color={'#444'} size={'large'} />
+				</View> :
+				<Text>This is dynos view</Text>				
 			}
 			</View>
 		);

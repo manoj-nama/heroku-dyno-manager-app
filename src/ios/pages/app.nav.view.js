@@ -89,7 +89,7 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.DYNO,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.DYNO, component: DynoPage})}
+					{this.getNavigator({name: enums.TABS.DYNO, component: DynoPage, params: this.props.route.params})}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
@@ -102,7 +102,7 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.RELEASE,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.RELEASE, component: ReleasePage})}
+					{this.getNavigator({name: enums.TABS.RELEASE, component: ReleasePage, params: this.props.route.params})}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
@@ -114,7 +114,7 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.CONFIG,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.CONFIG, component: ConfigPage})}
+					{this.getNavigator({name: enums.TABS.CONFIG, component: ConfigPage, params: this.props.route.params})}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
@@ -127,7 +127,7 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.COLLABORATOR,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.COLLABORATOR, component: CollaboratorPage})}
+					{this.getNavigator({name: enums.TABS.COLLABORATOR, component: CollaboratorPage, params: this.props.route.params})}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
