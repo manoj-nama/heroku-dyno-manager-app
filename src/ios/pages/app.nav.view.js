@@ -2,9 +2,13 @@
 
 import React, {
 	Component,
-	View,
+	StyleSheet,
 	Text,
-	StyleSheet
+	TextInput,
+	TouchableOpacity,
+	TabBarIOS,
+	Navigator,
+	View,
 } from "react-native";
 
 export default class AppNavPage extends Component {
@@ -15,7 +19,7 @@ export default class AppNavPage extends Component {
 
 	render() {
 		return (
-			<View style={styles.nav}>
+			<View style={[styles.nav, styles.centering]}>
 				<Text style={styles.centering}>This is the application navigation view</Text>
 			</View>	
 		);
@@ -24,7 +28,6 @@ export default class AppNavPage extends Component {
 
 const styles = StyleSheet.create({
 	centering: {
-		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

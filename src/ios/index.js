@@ -11,7 +11,7 @@ import React, {
 
 import LoginPage from './pages/login.view';
 import AccountPage from './pages/account.view';
-import Nav from './pages/nav.view';
+import Nav from './pages/app.nav.view';
 
 var enums = require("../common/enums"),
 	API = require("../common/api.manager");

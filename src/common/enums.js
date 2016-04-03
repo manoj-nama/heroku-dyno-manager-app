@@ -5,6 +5,12 @@ var obj = {
    STORAGE: {
       ACCOUNTS: "meroku_account"
    },
+   TABS: {
+      DYNO: "Dynos",
+      RELEASE: "Releases",
+      CONFIG: "Config",
+      COLLABORATOR: "Collaborator"
+   },
    ENDPOINTS: {
    	API_BASE: API_BASE,
    	AUTH: {
