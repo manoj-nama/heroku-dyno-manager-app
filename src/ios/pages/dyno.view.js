@@ -86,6 +86,7 @@ export default class DynoPage extends Component {
 				<ListView style={styles.list}
 					contentContainerStyle={styles.container}
 					pageSize={5}
+					contentInset={{top: 0, bottom: 53}}
 					automaticallyAdjustContentInsets={true}
 			    	dataSource={this.state.dataSource}
 			    	renderRow={this._renderRow.bind(this)} />			
