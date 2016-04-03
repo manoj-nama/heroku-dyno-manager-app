@@ -54,7 +54,9 @@ export default class AppNavPage extends Component {
 			},
 			Title: (route, navigator, index, navState) => {
 				return (
-					<Text style={styles.navTitle}>{route.name}</Text>
+					<Text style={styles.navTitle}>
+						{route.name}{route.appName && (" (" + route.appName + ")") || ""}
+					</Text>
 				);
 			}
 		};
@@ -89,7 +91,14 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.DYNO,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.DYNO, component: DynoPage, params: this.props.route.params})}
+					{
+						this.getNavigator({
+							name: enums.TABS.DYNO, 
+							component: DynoPage, 
+							appName: this.props.route.params.name, 
+							params: this.props.route.params
+						})
+					}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
@@ -102,7 +111,14 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.RELEASE,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.RELEASE, component: ReleasePage, params: this.props.route.params})}
+					{
+						this.getNavigator({
+							name: enums.TABS.RELEASE, 
+							component: ReleasePage, 
+							appName: this.props.route.params.name,
+							params: this.props.route.params
+						})
+					}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
@@ -114,7 +130,13 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.CONFIG,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.CONFIG, component: ConfigPage, params: this.props.route.params})}
+					{
+						this.getNavigator({
+							name: enums.TABS.CONFIG, 
+							component: ConfigPage, 
+							appName: this.props.route.params.name,
+							params: this.props.route.params})
+					}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
@@ -127,7 +149,14 @@ export default class AppNavPage extends Component {
 							selectedTab: enums.TABS.COLLABORATOR,
 						});
 					}}>
-					{this.getNavigator({name: enums.TABS.COLLABORATOR, component: CollaboratorPage, params: this.props.route.params})}
+					{
+						this.getNavigator({
+							name: enums.TABS.COLLABORATOR, 
+							component: CollaboratorPage, 
+							appName: this.props.route.params.name,
+							params: this.props.route.params
+						})
+					}
 				</Icon.TabBarItemIOS>
 
 				<Icon.TabBarItemIOS
