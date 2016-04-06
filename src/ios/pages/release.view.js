@@ -4,6 +4,7 @@ import React, {
 	Component,
 	View,
 	Text,
+	Alert,
 	ListView,
 	InteractionManager,
 	TouchableOpacity,
@@ -48,8 +49,40 @@ export default class ReleasePage extends Component {
 		});
 	}
 
-	rollbackRelease(data) {
+	confirmRollback(data) {
+		var self = this;
+		Alert.alert(
+			"Rollback",
+			"Are you sure you want to rollback to v" + data.version + "?",
+			[
+				{
+					text: "Cancel",
+					style: "cancel"
+				},
+				{
+					text: "Rollback",
+					onPress: ()=>{self._rollbackRelease(data)},
+					style: "destructive"
+				},
+			]
+		)
+	}
 
+	_rollbackRelease(data) {
+		var response = API.rollbackRelease({
+			appId: this.state.app.id,
+			releaseId: data.id
+		}), self;
+
+		response.then((resp) => {
+			if(resp) {
+				Alert.alert(
+					"Dyno restart", 
+					"Rolledback to v" + data.version + "!",
+					{text: "OK"}
+				);
+			}
+		}).done();
 	}
 
 	_renderRow(rowData) {
@@ -62,7 +95,7 @@ export default class ReleasePage extends Component {
 							<Text style={styles.email}>{rowData.user.email}</Text>
 						</View>						
 					</View>
-					<TouchableOpacity onPress={()=> this.rollbackRelease(rowData)}>
+					<TouchableOpacity onPress={()=> this.confirmRollback(rowData)}>
 							<View style={styles.navIcon}>
 								<Icon name="settings-backup-restore" size={30} color="#c22" />
 							</View>
