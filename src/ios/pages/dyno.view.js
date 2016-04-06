@@ -4,6 +4,7 @@ import React, {
 	Component,
 	View,
 	Text,
+	Alert,
 	ListView,
 	InteractionManager,
 	TouchableOpacity,
@@ -49,7 +50,21 @@ export default class DynoPage extends Component {
 	}
 
 	restartDyno(data) {
+		var response = API.restart({
+			appId: this.state.app.id,
+			dynoId: data.id
+		}),
+		self = this;
 
+		response.then((resp) => {
+			if(resp) {
+				Alert.alert(
+					"Dyno restart", 
+					data.name + " has been restarted!",
+					{text: "OK"}
+				);
+			}
+		}).done();
 	}
 
 	_renderRow(rowData) {
