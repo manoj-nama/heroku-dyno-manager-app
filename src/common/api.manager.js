@@ -188,6 +188,17 @@ APIManager.prototype.addConfig = async function (options) {
 	}
 };
 
+APIManager.prototype.removeConfig = async function (options) {
+	try {
+		let response = await this.request(enums.ENDPOINTS.HEROKU.CONFIG.REMOVE, options);
+		let responseJson = await response.json();
+		return responseJson;
+	} catch(e) {
+		console.log(e);
+		return [];
+	}
+};
+
 var Manager = new APIManager();
 
 module.exports = Manager;
