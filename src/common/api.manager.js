@@ -166,6 +166,17 @@ APIManager.prototype.rollbackRelease = async function (options) {
 	}
 };
 
+APIManager.prototype.config = async function (options) {
+	try {
+		let response = await this.request(enums.ENDPOINTS.HEROKU.CONFIG.LIST, options);
+		let responseJson = await response.json();
+		return responseJson;
+	} catch(e) {
+		console.log(e);
+		return [];
+	}
+};
+
 var Manager = new APIManager();
 
 module.exports = Manager;
