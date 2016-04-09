@@ -19,6 +19,7 @@ export default class AddAccountPage extends Component {
 		super(props);
 		this.state = {
 			isBusy: false,
+			authError: false,
 			accounts: {},
 			email: "",
 			password: ""
@@ -60,6 +61,10 @@ export default class AddAccountPage extends Component {
 					});
 				} else {
 					//auth error
+					this.setState({
+						isBusy: false,
+						authError: true,
+					});
 				}
 			}).done();
 		}
@@ -69,6 +74,12 @@ export default class AddAccountPage extends Component {
 	render() {
 		return (
 			<View style={styles.nav}>
+				{
+					this.state.authError ?
+					<View style={styles.errWrap}>
+						<Text style={styles.error}>Authentication failed!</Text>
+					</View> : null
+				}
 				<View style={styles.form}>
 					<TextInput
 						keyboardType="email-address"
@@ -106,10 +117,18 @@ const styles = StyleSheet.create({
 	nav: {
 		flex: 1,
 		backgroundColor: "#eee",
-		paddingTop: 70,
+		paddingTop: 64,
 	},
 	form: {
 		paddingTop: 20,
+	},
+	errWrap: {
+		paddingVertical: 15,
+		alignItems: "center",
+		backgroundColor: "rgba(220, 40, 40, 0.7)",
+	},
+	error: {
+		color: "#fff",
 	},
 	txt: {
 		height: 40,
