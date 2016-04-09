@@ -22,6 +22,7 @@ export default class LoginPage extends Component {
 		super(props);
 		this.state = {
 			isBusy: false,
+			authError: false,
 			accounts: {},
 			email: "",
 			password: "",
@@ -34,18 +35,22 @@ export default class LoginPage extends Component {
 				email: this.state.email,
 				password: this.state.password,
 			});
-			response.then((data) => {
+			response.then((data) => {		
 				if(data.token) {
 					var accounts = this.state.accounts;
 					accounts[data.email] = data;
-					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
 					this.setState({isBusy: false});
+					AsyncStorage.setItem(enums.STORAGE.ACCOUNTS, JSON.stringify(accounts));
 					this.props.parentNav.replace({
 						id: "Nav",
 						component: Nav,
 					});
 				} else {
 					//auth error
+					this.setState({
+						isBusy: false,
+						authError: true,
+					});
 				}
 			}).done();
 		}
@@ -59,6 +64,12 @@ export default class LoginPage extends Component {
 				<View style={styles.headingWrap}>
 					<Text style={styles.heading}>Meroku</Text>
 				</View>
+				{
+					this.state.authError ?
+					<View style={styles.errWrap}>
+						<Text style={styles.error}>Authentication failed!</Text>
+					</View> : null
+				}
 				<View style={styles.form}>
 					<TextInput
 						keyboardType="email-address"
@@ -114,6 +125,14 @@ const styles = StyleSheet.create({
 	},
 	headingWrap: {
 		paddingTop: 50,
+	},
+	errWrap: {
+		paddingVertical: 15,
+		alignItems: "center",
+		backgroundColor: "rgba(220, 40, 40, 0.7)",
+	},
+	error: {
+		color: "#fff",
 	},
 	form: {
 		paddingTop: 20,

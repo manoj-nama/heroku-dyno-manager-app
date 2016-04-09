@@ -1,6 +1,6 @@
 'use strict';
 
-var API_BASE = process.env.HEROKU_API_BASE || "http://heroku.manojnama.com";
+var API_BASE = process.env.HEROKU_API_BASE || "http://localhost:9000";
 var obj = {
    STORAGE: {
       ACCOUNTS: "meroku_account"
