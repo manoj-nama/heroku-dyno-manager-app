@@ -92,7 +92,7 @@ export default class LoginPage extends Component {
 						<View>
 							{
 								this.state.isBusy ?
-								<ActivityIndicatorIOS color={'#BBA1C9'} style={[styles.centering, {height: 20}]} /> :
+								<ActivityIndicatorIOS color={'#333'} style={[styles.centering, {height: 20}]} /> :
 								<Text style={styles.btnTxt}>Login</Text>
 							}
 						</View>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 	nav: {
 		flexDirection: 'column',
 		flex: 1,
-      backgroundColor: "#777",
+    backgroundColor: "#fc5",
 	},
 	copy: {
 		paddingTop: 40,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
 	heading: {
 		fontSize: 42,
 		textAlign: "center",
-		color: "#fff",
+		color: "#333",
 		fontWeight: "200",
 		paddingVertical: 20,
 	},
@@ -144,10 +144,10 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 5,
 		margin: 10,
-    backgroundColor: "#aaa",
-		borderWidth: 1,
-    color: "#275355",
-		borderColor: "#555",
+    backgroundColor: "#eee",
+    borderWidth: 1,
+    color: "#333",
+		borderColor: "#888",
 	},
 	loginBtn: {
 		paddingVertical: 10,
