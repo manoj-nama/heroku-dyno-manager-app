@@ -13,6 +13,7 @@ import React, {
 } from "react-native";
 
 var enums = require("../../common/enums"),
+	moment = require("moment"),
 	Icon = require('react-native-vector-icons/MaterialIcons'),
 	API = require("../../common/api.manager");
 
@@ -68,6 +69,7 @@ export default class DynoPage extends Component {
 	}
 
 	_renderRow(rowData) {
+		var runTime = moment(rowData.updated_at).fromNow();
 		return (
 			<View style={styles.listItemWrap}>
 				<View style={styles.listItem}>
@@ -77,7 +79,7 @@ export default class DynoPage extends Component {
 					<View style={styles.info}>
 						<View>
 							<Text style={styles.name}>{rowData.name}</Text>
-							<Text style={styles.email}>{rowData.size}</Text>
+							<Text style={styles.email}>{rowData.size} - ({runTime})</Text>
 						</View>						
 					</View>
 					<TouchableOpacity onPress={()=> this.restartDyno(rowData)}>
