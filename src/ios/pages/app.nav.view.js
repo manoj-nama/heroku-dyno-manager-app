@@ -55,7 +55,7 @@ export default class AppNavPage extends Component {
 			Title: (route, navigator, index, navState) => {
 				return (
 					<Text style={styles.navTitle}>
-						{route.name}{route.appName && (" (" + route.appName + ")") || ""}
+						{route.appName && route.appName || route.name}
 					</Text>
 				);
 			}
@@ -190,14 +190,14 @@ const styles = StyleSheet.create({
 	navText: {
 		fontSize: 16,
 		marginVertical: 10,
-		color: "#fff",
+		color: "#333",
 		paddingHorizontal: 10,
 	},
 	navTitle: {
 		fontWeight: "bold",
 		fontSize: 16,
 		marginTop: 10,
-		color: "#fff",
+		color: "#333",
 		paddingHorizontal: 10,
 	},
 	navIconBtn: {
@@ -205,10 +205,10 @@ const styles = StyleSheet.create({
 	},
 	navIcon: {
 		fontSize: 22,
-		color: "#fff",
+		color: "#333",
 		paddingHorizontal: 15,
 	},
 	navBar: {
-		backgroundColor: "#777",
+		backgroundColor: "#fc5",
 	},
 });

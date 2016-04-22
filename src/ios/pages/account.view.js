@@ -199,7 +199,7 @@ export default class AccountPage extends Component {
 	render() {
 		return (
 			<View style={styles.nav} automaticallyAdjustsScrollViewInsets={true}>
-				<StatusBar barStyle="light-content" />
+				<StatusBar barStyle="default" />
 				<ListView style={styles.list}
 					contentContainerStyle={styles.container}
 					pageSize={5}

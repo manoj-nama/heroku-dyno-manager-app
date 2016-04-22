@@ -72,7 +72,7 @@ export default class AppsPage extends Component {
 				onPress={() => this.goToDetailPage(rowData)}>
 				<View style={styles.listItem}>
 					<View style={styles.picCol}>
-						<Icon style={styles.navIcon} name="cube" size={36} color="#444" />
+						<Icon style={styles.navIcon} name="ribbon-b" size={36} color="#444" />
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.name}>{rowData.name}</Text>
@@ -86,7 +86,7 @@ export default class AppsPage extends Component {
 	render() {
 		return (
 			<View style={styles.nav} automaticallyAdjustsScrollViewInsets={true}>
-				<StatusBar barStyle="light-content" />
+				<StatusBar barStyle="default" />
 			   {
 			   	(this.state.loading || !this.state.isReady) ?
 			   	<View style={styles.centering}>

@@ -12,7 +12,7 @@ import React, {
 import AccountPage from './account.view';
 import AddAccountPage from './account.add.view';
 
-var Icon = require('react-native-vector-icons/MaterialIcons');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 export default class Nav extends Component {
 	constructor(props) {
@@ -52,7 +52,7 @@ export default class Nav extends Component {
 						style={styles.backBtn}
 						onPress={() => navigator.pop()}>
 						<Text style={styles.navText}>
-							&lt; Back
+							<Icon style={styles.navIcon} name="chevron-left" size={30} color="#900" />
 						</Text>
 					</TouchableOpacity>
 				);
@@ -115,14 +115,14 @@ var styles = StyleSheet.create({
 	navText: {
 		fontSize: 16,
 		marginVertical: 10,
-		color: "#fff",
+		color: "#333",
 		paddingHorizontal: 10,
 	},
 	navTitle: {
 		fontWeight: "bold",
 		fontSize: 16,
 		marginTop: 10,
-		color: "#fff",
+		color: "#333",
 		paddingHorizontal: 10,
 	},
 	navIconBtn: {
@@ -130,10 +130,10 @@ var styles = StyleSheet.create({
 	},
 	navIcon: {
 		fontSize: 22,
-		color: "#fff",
+		color: "#333",
 		paddingHorizontal: 15,
 	},
 	navBar: {
-		backgroundColor: "#777",
+		backgroundColor: "#fc5",
 	},
 });
