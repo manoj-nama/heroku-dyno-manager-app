@@ -56,7 +56,7 @@ export default class CollaboratorPage extends Component {
    	var imageUrl = ImageManager.get({
    		emailHash: rowData.emailHash,
    		default: "retro",
-   		size: 100,
+   		size: 120,
    	});
 		return (
 			<TouchableOpacity 
@@ -130,12 +130,11 @@ const styles = StyleSheet.create({
 		marginVertical: 5,
 	},
 	picCol: {
-		marginRight: 10,
-		width: 50,
 	},
 	pic: {
 		width: 50,
-		backgroundColor: "#ccc",
+		marginRight: 10,
+		backgroundColor: "#fff",
 		borderRadius: 25,
 		height: 50,
 	},
