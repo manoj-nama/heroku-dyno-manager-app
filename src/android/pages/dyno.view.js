@@ -62,7 +62,7 @@ export default class DynoPage extends Component {
 				Alert.alert(
 					"Dyno restart", 
 					data.name + " has been restarted!",
-					{text: "OK"}
+					[{text: "OK"}]
 				);
 			}
 		}).done();
