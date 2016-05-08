@@ -58,13 +58,13 @@ export default class Nav extends Component {
 				);
 			},
 			RightButton: (route, navigator, index, navState) => {
-				if (route.rightElement) {
+				if (route.rightElement) { 
 					return route.rightElement;
 				}
 			},
 			Title: (route, navigator, index, navState) => {
 				return (
-					<Text style={styles.navTitle}>{route.name}</Text>
+						<Text style={styles.navTitle}>{route.name}</Text>
 				);
 			}
 		};
@@ -74,7 +74,10 @@ export default class Nav extends Component {
 				ref="mainNavigator"
 				automaticallyAdjustsScrollViewInsets={true}
 				navigationBar={
-					   <Navigator.NavigationBar style={styles.navBar} routeMapper={routeMapper} />
+					   <Navigator.NavigationBar 
+					   		navigationStyles={Navigator.NavigationBar.StylesIOS}
+								style={styles.navBar} 
+								routeMapper={routeMapper} />
 				}
 				initialRoute={defaultRoute}
 				configureScene={() => {
@@ -100,6 +103,7 @@ var styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	centering: {
+		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -109,26 +113,25 @@ var styles = StyleSheet.create({
 	},
 	navText: {
 		fontSize: 16,
-		marginTop: 15,
-		color: "#333",
+		marginTop: 0,
 		marginHorizontal: 15,
-		paddingHorizontal: 15,
+		color: "#333",
+		paddingHorizontal: 20,
 	},
 	navTitle: {
 		fontWeight: "bold",
 		fontSize: 16,
-		marginTop: 15,
+		marginTop: 0,
 		color: "#333",
 		paddingHorizontal: 10,
 	},
 	navIconBtn: {
-		marginTop: 10,
+		marginTop: 0,
 	},
 	navIcon: {
 		fontSize: 22,
-		marginTop: 5,
 		color: "#333",
-		paddingHorizontal: 15,
+		paddingHorizontal: 10,
 	},
 	navBar: {
 		backgroundColor: "#fc5",
