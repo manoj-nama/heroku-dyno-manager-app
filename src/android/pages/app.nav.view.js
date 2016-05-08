@@ -6,6 +6,7 @@ import React, {
 	Text,
 	DrawerLayoutAndroid,
 	TextInput,
+	InteractionManager,
 	TouchableOpacity,
 	Navigator,
 	View,
@@ -18,7 +19,8 @@ import CollaboratorPage from "./collaborator.view";
 
 var enums = require("../../common/enums"),
 	Icon = require('react-native-vector-icons/MaterialIcons'),
-	ImageManager = require("../../common/image.manager");
+	ImageManager = require("../../common/image.manager"),
+	IonIcon = require('react-native-vector-icons/Ionicons');
 
 export default class AppNavPage extends Component {
 
@@ -30,11 +32,41 @@ export default class AppNavPage extends Component {
 		}
 	}
 
+	openDrawer() {
+		this.refs.DRAWER_REF.openDrawer();
+	}
+
+	closeDrawer() {
+		this.refs.DRAWER_REF.closeDrawer();	
+	}
+
+	componentDidMount() {
+		InteractionManager.runAfterInteractions(() => {
+			//start doing things after this
+		});
+	}
+
 	getNavigator(defaultRoute) {
+		console.log("defR", defaultRoute);
+		var self = this;
 		const routeMapper = {
 			LeftButton: (route, navigator, index, navState) => {
 				if (index === 0) {
-					return null;
+					return (
+						<TouchableOpacity
+							style={styles.backBtn}
+							onPress={() => self.openDrawer()}>
+							<Icon 
+								style={[
+									styles.navIcon, 
+									styles.bigIcon,
+									{color: '#333', marginHorizontal: 10, paddingLeft: 20}
+								]} 
+								name="menu" 
+								size={30} 
+								color="#333" />
+						</TouchableOpacity>
+					);
 				}
 				const previousRoute = navState.routeStack[index - 1]
 				return (
@@ -42,7 +74,14 @@ export default class AppNavPage extends Component {
 						style={styles.backBtn}
 						onPress={() => navigator.pop()}>
 						<Text style={styles.navText}>
-							&lt; Back
+							<IonIcon 
+								style={[
+									styles.navIcon,
+									{color: "#333"}
+								]} 
+								name="chevron-left" 
+								size={30} 
+								color="#333" />
 						</Text>
 					</TouchableOpacity>
 				);
@@ -54,15 +93,24 @@ export default class AppNavPage extends Component {
 			},
 			Title: (route, navigator, index, navState) => {
 				return (
-					<Text style={styles.navTitle}>
-						{route.appName && route.appName || route.name}
-					</Text>
+					<TouchableOpacity
+						onPress={() => self.openDrawer()}>
+						<View style={[styles.centering, {marginTop: -5}]}>
+							<Text style={styles.navTitle}>
+								{route.appName && route.appName || route.name}
+							</Text>
+							<Text style={styles.navDesc}>
+								{route.name}
+							</Text>
+						</View>
+					</TouchableOpacity>
 				);
 			}
 		};
 
 		return (
 			<Navigator
+				ref={"APP_NAV"}
 				automaticallyAdjustsScrollViewInsets={true}
 				navigationBar={
 					<Navigator.NavigationBar 
@@ -82,67 +130,92 @@ export default class AppNavPage extends Component {
 		);
 	}
 
+	_navigateToSection(section, component) {
+		const self = this;
+		if(section) {
+			this.refs.APP_NAV.replace({
+				name: section, 
+				component: component, 
+				appName: self.props.route.params.name, 
+				params: self.props.route.params
+			});
+			this.setState({
+				selectedItem: section
+			});
+			this.closeDrawer();
+		} else {
+			this.props.parentNav.pop();
+		}
+	}
+
 	getDrawerItems() {
+		const self = this,
+		selected = this.state.selectedItem;
 		return (
 			<View style={styles.nav}>
 				<TouchableOpacity 
 					style={styles.listItemWrap} 
+					onPress={() => self._navigateToSection(enums.TABS.DYNO, DynoPage)}
 					key={'a'}>
-					<View style={[styles.listItem, styles.selectedBg]}>
+					<View style={[styles.listItem, selected === enums.TABS.DYNO && styles.selectedBg]}>
 						<View style={styles.picCol}>
-							<Icon style={[styles.navIcon, styles.selectedIcon]} name="fiber-smart-record" size={40} />
+							<Icon style={[styles.navIcon, styles.bigIcon, selected === enums.TABS.DYNO && styles.selectedIcon]} name="fiber-smart-record" size={40} />
 						</View>
 						<View style={styles.info}>
-							<Text style={[styles.name, styles.selectedName]}>{enums.TABS.DYNO}</Text>
+							<Text style={[styles.name, selected === enums.TABS.DYNO && styles.selectedName]}>{enums.TABS.DYNO}</Text>
 						</View>
 					</View>
 				</TouchableOpacity>
 
 				<TouchableOpacity 
 					style={styles.listItemWrap} 
+					onPress={() => self._navigateToSection(enums.TABS.RELEASE, ReleasePage)}
 					key={'b'}>
-					<View style={styles.listItem}>
+					<View style={[styles.listItem, selected === enums.TABS.RELEASE && styles.selectedBg]}>
 						<View style={styles.picCol}>
-							<Icon style={styles.navIcon} name="bookmark-border" size={40} />
+							<Icon style={[styles.navIcon, styles.bigIcon, selected === enums.TABS.RELEASE && styles.selectedIcon]} name="bookmark-border" size={40} />
 						</View>
 						<View style={styles.info}>
-							<Text style={styles.name}>{enums.TABS.RELEASE}</Text>
+							<Text style={[styles.name, selected === enums.TABS.RELEASE && styles.selectedName]}>{enums.TABS.RELEASE}</Text>
 						</View>
 					</View>
 				</TouchableOpacity>
 
 				<TouchableOpacity 
 					style={styles.listItemWrap} 
+					onPress={() => self._navigateToSection(enums.TABS.CONFIG, ConfigPage)}
 					key={'c'}>
-					<View style={styles.listItem}>
+					<View style={[styles.listItem, selected === enums.TABS.CONFIG && styles.selectedBg]}>
 						<View style={styles.picCol}>
-							<Icon style={[styles.navIcon]} name="settings-applications" size={40} />
+							<Icon style={[styles.navIcon, styles.bigIcon, selected === enums.TABS.CONFIG && styles.selectedIcon]} name="settings-applications" size={40} />
 						</View>
 						<View style={styles.info}>
-							<Text style={[styles.name]}>{enums.TABS.CONFIG}</Text>
+							<Text style={[styles.name, selected === enums.TABS.CONFIG && styles.selectedName]}>{enums.TABS.CONFIG}</Text>
 						</View>
 					</View>
 				</TouchableOpacity>
 
 				<TouchableOpacity 
 					style={styles.listItemWrap} 
+					onPress={() => self._navigateToSection(enums.TABS.COLLABORATOR, CollaboratorPage)}
 					key={'d'}>
-					<View style={styles.listItem}>
+					<View style={[styles.listItem, selected === enums.TABS.COLLABORATOR && styles.selectedBg]}>
 						<View style={styles.picCol}>
-							<Icon style={styles.navIcon} name="people-outline" size={40} />
+							<Icon style={[styles.navIcon, styles.bigIcon, selected === enums.TABS.COLLABORATOR && styles.selectedIcon]} name="people-outline" size={40} />
 						</View>
 						<View style={styles.info}>
-							<Text style={styles.name}>{enums.TABS.COLLABORATOR}</Text>
+							<Text style={[styles.name, selected === enums.TABS.COLLABORATOR && styles.selectedName]}>{enums.TABS.COLLABORATOR}</Text>
 						</View>
 					</View>
 				</TouchableOpacity>
 
 				<TouchableOpacity 
 					style={styles.listItemWrap} 
+					onPress={() => self._navigateToSection()}
 					key={'e'}>
 					<View style={styles.listItem}>
 						<View style={styles.picCol}>
-							<Icon style={styles.navIcon} name="bubble-chart" size={40} />
+							<Icon style={[styles.navIcon, styles.bigIcon]} name="bubble-chart" size={40} />
 						</View>
 						<View style={styles.info}>
 							<Text style={styles.name}>Back to {enums.TABS.APPS}</Text>
@@ -166,8 +239,6 @@ export default class AppNavPage extends Component {
 
 		switch(this.state.selectedItem) {
 			case enums.TABS.DYNO:
-				navParams.name = enums.TABS.DYNO; 
-				navParams.component = DynoPage; 
 				break;
 
 			case enums.TABS.RELEASE:
@@ -192,10 +263,10 @@ export default class AppNavPage extends Component {
 				statusBarBackgroundColor={'#333'}
 				ref={'DRAWER_REF'}
 				drawerPosition={DrawerLayoutAndroid.positions.Left}
-				renderNavigationView={() => navigationView}>
-					
-					{ self.getNavigator(navParams) }
-
+				renderNavigationView={() => navigationView}>					
+					{ 
+						self.getNavigator(navParams)
+					}
 			</DrawerLayoutAndroid>
 		);
 	}
@@ -217,9 +288,10 @@ const styles = StyleSheet.create({
 	},
 	navText: {
 		fontSize: 16,
-		marginVertical: 10,
+		marginTop: 0,
+		marginHorizontal: 15,
 		color: "#333",
-		paddingHorizontal: 10,
+		paddingHorizontal: 20,
 	},
 	navTitle: {
 		fontWeight: "bold",
@@ -228,10 +300,19 @@ const styles = StyleSheet.create({
 		color: "#333",
 		paddingHorizontal: 10,
 	},
+	navDesc: {
+		fontSize: 12,
+		color: "#666",
+		fontStyle: "italic",
+		paddingHorizontal: 10,
+	},
 	navIcon: {
-		fontSize: 30,
+		fontSize: 22,
 		color: "#eee",
 		paddingHorizontal: 5,
+	},
+	bigIcon: {
+		fontSize: 30,
 	},
 	selectedIcon: {
 		color: "#000",
