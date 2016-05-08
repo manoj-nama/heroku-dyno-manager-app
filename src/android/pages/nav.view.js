@@ -1,0 +1,136 @@
+'use strict';
+
+import React, {
+	Component,
+	Navigator,
+	View,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+} from 'react-native';
+
+import AccountPage from './account.view';
+import AddAccountPage from './account.add.view';
+
+var Icon = require('react-native-vector-icons/Ionicons');
+
+export default class Nav extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
+
+	render() {
+		const defaultRoute = {
+			name: "Accounts",
+			component: AccountPage,
+			rightElement: (
+				<TouchableOpacity 
+					style={styles.navIconBtn} 
+					onPress={()=> {
+						this.refs.mainNavigator.push({ 
+							name: "Add Account",
+							id: "AddAccount",
+							component: AddAccountPage,
+							params: {},
+							rightElement: null
+						});
+					}}
+					activeOpacity={0.3}>
+					<Icon style={styles.navIcon} name="person-add" size={30} color="#900" />
+				</TouchableOpacity>
+			)
+		};
+
+		const routeMapper = {
+			LeftButton: (route, navigator, index, navState) => {
+				if (index === 0) {
+					return null;
+				}
+				return (
+					<TouchableOpacity
+						style={styles.backBtn}
+						onPress={() => navigator.pop()}>
+						<Text style={styles.navText}>
+							<Icon style={styles.navIcon} name="chevron-left" size={30} color="#900" />
+						</Text>
+					</TouchableOpacity>
+				);
+			},
+			RightButton: (route, navigator, index, navState) => {
+				if (route.rightElement) {
+					return route.rightElement;
+				}
+			},
+			Title: (route, navigator, index, navState) => {
+				return (
+					<Text style={styles.navTitle}>{route.name}</Text>
+				);
+			}
+		};
+
+		return (
+			<Navigator
+				ref="mainNavigator"
+				automaticallyAdjustsScrollViewInsets={true}
+				navigationBar={
+					   <Navigator.NavigationBar style={styles.navBar} routeMapper={routeMapper} />
+				}
+				initialRoute={defaultRoute}
+				configureScene={() => {
+				  return Navigator.SceneConfigs.PushFromRight;
+				}}
+				renderScene={(route, navigator) => {
+					if (route.component) {
+				   	return React.createElement(route.component, { 
+				   		parentNav: this.props.parentNav,
+				   		navigator: navigator, 
+				   		route: route
+				   	});
+			  	}
+			}} />
+		);
+	}
+};
+
+var styles = StyleSheet.create({
+	tab: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	centering: {
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	navWrap: {
+		flex: 1,
+		marginTop: 65, 
+	},
+	navText: {
+		fontSize: 16,
+		marginTop: 15,
+		color: "#333",
+		marginHorizontal: 15,
+		paddingHorizontal: 15,
+	},
+	navTitle: {
+		fontWeight: "bold",
+		fontSize: 16,
+		marginTop: 15,
+		color: "#333",
+		paddingHorizontal: 10,
+	},
+	navIconBtn: {
+		marginTop: 10,
+	},
+	navIcon: {
+		fontSize: 22,
+		marginTop: 5,
+		color: "#333",
+		paddingHorizontal: 15,
+	},
+	navBar: {
+		backgroundColor: "#fc5",
+	},
+});
