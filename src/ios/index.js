@@ -9,6 +9,16 @@ import React, {
 	AsyncStorage
 } from 'react-native';
 
+var Fabric = require('react-native-fabric');
+var { Crashlytics } = Fabric;
+
+Crashlytics.setUserName('namacool');
+Crashlytics.setUserEmail('manoj.nama@outlook.com');
+Crashlytics.setUserIdentifier('navratna++');
+Crashlytics.setBool('has_posted', true);
+Crashlytics.setString('organization', 'NamaRNs');
+const ErrorUtils = require('ErrorUtils');
+
 import LoginPage from './pages/login.view';
 import AccountPage from './pages/account.view';
 import Nav from './pages/nav.view';
@@ -24,25 +34,29 @@ export default class HerokuApp extends Component {
 			initialPage: LoginPage,
 			accountCheck: false
 		}
+		ErrorUtils.setGlobalHandler((err, isFatal) => {
+			console.log("Error occored ...", err, isFatal);
+			Crashlytics.recordError(err);
+		});
 	}
 
 	componentWillMount() {
-      var _data, self = this;
+		var _data, self = this;
 
-      AsyncStorage.getItem(enums.STORAGE.ACCOUNTS, function (err, data) {
-         if(data) {
-         	self.setState({initialPage: Nav, accountCheck: true});
-         } else {
-         	self.setState({accountCheck: true});
-         }
-         // AsyncStorage.removeItem(enums.STORAGE.ACCOUNTS, function(){});
-      });
-   }
+		AsyncStorage.getItem(enums.STORAGE.ACCOUNTS, function (err, data) {
+			if (data) {
+				self.setState({ initialPage: Nav, accountCheck: true });
+			} else {
+				self.setState({ accountCheck: true });
+			}
+			// AsyncStorage.removeItem(enums.STORAGE.ACCOUNTS, function(){});
+		});
+	}
 
 	render() {
 		var self = this;
 
-		if(!self.state.accountCheck) {
+		if (!self.state.accountCheck) {
 			return (
 				<View style={styles.centering}>
 					<ActivityIndicatorIOS color={'#444'} size={'large'} />
@@ -53,18 +67,18 @@ export default class HerokuApp extends Component {
 		return (
 			<Navigator
 				automaticallyAdjustsScrollViewInsets={true}
-				initialRoute={{name: 'Login', component: self.state.initialPage, id: "Login"}}
+				initialRoute={{ name: 'Login', component: self.state.initialPage, id: "Login" }}
 				configureScene={() => {
-				  return Navigator.SceneConfigs.PushFromRight;
-				}}
+					return Navigator.SceneConfigs.PushFromRight;
+				} }
 				renderScene={(route, navigator) => {
 					if (route.component) {
-				   	return React.createElement(route.component, { 
-				   		parentNav: navigator, 
-				   		route: route 
-				   	});
-				  	}
-			}} />
+						return React.createElement(route.component, {
+							parentNav: navigator,
+							route: route
+						});
+					}
+				} } />
 		);
 	}
 };
