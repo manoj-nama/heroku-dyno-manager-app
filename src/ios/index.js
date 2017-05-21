@@ -12,11 +12,11 @@ import React, {
 var Fabric = require('react-native-fabric');
 var { Crashlytics } = Fabric;
 
-Crashlytics.setUserName('namacool');
-Crashlytics.setUserEmail('manoj.nama@outlook.com');
-Crashlytics.setUserIdentifier('navratna++');
+Crashlytics.setUserName('');
+Crashlytics.setUserEmail('');
+Crashlytics.setUserIdentifier('');
 Crashlytics.setBool('has_posted', true);
-Crashlytics.setString('organization', 'NamaRNs');
+Crashlytics.setString('organization', '');
 const ErrorUtils = require('ErrorUtils');
 
 import LoginPage from './pages/login.view';
